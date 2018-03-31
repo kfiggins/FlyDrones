@@ -1,45 +1,64 @@
-import React, { Component } from "react";
-import GoogleMapReact from "google-map-react";
+import React from "react";
+import { compose, withProps } from "recompose";
+import {
+  withScriptjs,
+  withGoogleMap,
+  GoogleMap,
+  Marker
+} from "react-google-maps";
 
-const test = {
-  width: "10px"
-};
-const AnyReactComponent = ({ text }) => (
-  <div>
-    {/* {text} */}
-    <img
-      style={test}
-      src="https://cdn2.iconfinder.com/data/icons/flat-game-ui-buttons-icons-1/512/10-512.png"
-      alt=""
-    />
-  </div>
-);
+const MyMapComponent = compose(
+  withProps({
+    googleMapURL:
+      "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places",
+    loadingElement: <div style={{ height: `100%` }} />,
+    containerElement: <div style={{ height: `400px` }} />,
+    mapElement: <div style={{ height: `100%` }} />
+  }),
+  withScriptjs,
+  withGoogleMap
+)(props => (
+  <GoogleMap defaultZoom={8} defaultCenter={{ lat: -34.397, lng: 150.644 }}>
+    {props.isMarkerShown && (
+      <Marker
+        position={{ lat: -34.397, lng: 150.644 }}
+        onClick={props.onMarkerClick}
+        bootstrapURLKeys={{
+          key: "AIzaSyAd3YVr3FLRS5i7igx4jZFuqc5KsAa5nlM"
+        }}
+      />
+    )}
+  </GoogleMap>
+));
 
-class SimpleMap extends Component {
-  static defaultProps = {
-    center: {
-      lat: 41.737,
-      lng: -111.8338
-    },
-    zoom: 5
+class MyFancyComponent extends React.PureComponent {
+  state = {
+    isMarkerShown: false
+  };
+
+  componentDidMount() {
+    this.delayedShowMarker();
+  }
+
+  delayedShowMarker = () => {
+    setTimeout(() => {
+      this.setState({ isMarkerShown: true });
+    }, 3000);
+  };
+
+  handleMarkerClick = () => {
+    this.setState({ isMarkerShown: false });
+    this.delayedShowMarker();
   };
 
   render() {
     return (
-      // Important! Always set the container height explicitly
-      <div style={{ height: "50vh", width: "50%" }}>
-        <GoogleMapReact
-          bootstrapURLKeys={{
-            key: "AIzaSyAd3YVr3FLRS5i7igx4jZFuqc5KsAa5nlM"
-          }}
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
-        >
-          <AnyReactComponent lat={41.737} lng={-111.8338} text={"Logan, UT"} />
-        </GoogleMapReact>
-      </div>
+      <MyMapComponent
+        isMarkerShown={this.state.isMarkerShown}
+        onMarkerClick={this.handleMarkerClick}
+      />
     );
   }
 }
 
-export default SimpleMap;
+export default MyFancyComponent;
