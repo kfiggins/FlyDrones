@@ -9,8 +9,16 @@ class MainBody extends Component {
         locationId: 1,
         image:
           "https://images.pexels.com/photos/132037/pexels-photo-132037.jpeg?cs=srgb&dl=beach-boardwalk-boat-132037.jpg&fm=jpg",
-        locationText: "Logan, UT",
+        locationText: "Canada",
         location: { lat: 49.7603785, lng: -119.8480305 },
+        zoom: 15
+      },
+      {
+        locationId: 2,
+        image:
+          "https://images.pexels.com/photos/132037/pexels-photo-132037.jpeg?cs=srgb&dl=beach-boardwalk-boat-132037.jpg&fm=jpg",
+        locationText: "Somewhere, UT",
+        location: { lat: -49.7603785, lng: 119.8480305 },
         zoom: 15
       }
     ],
@@ -46,6 +54,9 @@ class MainBody extends Component {
 
   mapMoved = () => {
     console.log("dragged to " + JSON.stringify(this.state.map.getCenter()));
+    this.setState({
+      center: this.state.map.getCenter()
+    });
   };
 
   mapLoaded = map => {
@@ -56,6 +67,9 @@ class MainBody extends Component {
 
   mapZoom = () => {
     console.log("zoom to " + JSON.stringify(this.state.map.getZoom()));
+    this.setState({
+      zoom: this.state.map.getZoom()
+    });
   };
 
   render() {
