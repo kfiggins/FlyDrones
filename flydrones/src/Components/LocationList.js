@@ -1,17 +1,25 @@
 import React from "react";
-import LocationCard from "./LocationCard";
 
-const LocationList = () => {
+const LocationList = props => {
   return (
     <div>
-      <LocationCard />
-      <LocationCard />
-
-      <LocationCard />
-
-      <LocationCard />
-      <LocationCard />
-      <LocationCard />
+      {props.locations.map(x => (
+        <div
+          key={x.locationId}
+          className="card"
+          style={{ width: "10rem", float: "left", margin: "2px" }}
+        >
+          <img
+            className="card-img-top"
+            src={x.image}
+            onClick={props.updateMap.bind(this, x)}
+            alt="Card image cap"
+          />
+          <div className="card-body">
+            <p className="card-text">{x.locationText}</p>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
