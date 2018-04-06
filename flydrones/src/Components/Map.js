@@ -60,15 +60,6 @@ const MyFancyComponent = props => {
         mapMoved={props.mapMoved}
         mapZoom={props.mapZoom}
       />
-      <div>
-        <button
-          className="btn btn-info"
-          style={{ margin: "5px" }}
-          onClick={props.updateMap}
-        >
-          Add Location
-        </button>
-      </div>
     </div>
   );
 };

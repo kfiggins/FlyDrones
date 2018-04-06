@@ -13,7 +13,7 @@ const LocationList = props => {
             className="card-img-top"
             src={x.image}
             onClick={props.updateMap.bind(this, x)}
-            alt="Card image cap"
+            alt=""
           />
           <div className="card-body">
             <p className="card-text">{x.locationText}</p>

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import MyFancyComponent from "./Map";
 import LocationList from "./LocationList";
+import NewLocationForm from "./NewLocationForm";
+import RandomId from "random-id";
 
 class MainBody extends Component {
   state = {
@@ -54,8 +56,10 @@ class MainBody extends Component {
 
   mapMoved = () => {
     console.log("dragged to " + JSON.stringify(this.state.map.getCenter()));
+    var center = this.state.map.getCenter();
+    console.log(center);
     this.setState({
-      center: this.state.map.getCenter()
+      center: { lat: center.lat(), lng: center.lng() }
     });
   };
 
@@ -69,6 +73,24 @@ class MainBody extends Component {
     console.log("zoom to " + JSON.stringify(this.state.map.getZoom()));
     this.setState({
       zoom: this.state.map.getZoom()
+    });
+  };
+
+  handleSubmit = newLocation => {
+    this.setState({
+      locations: [
+        ...this.state.locations,
+        {
+          locationId: RandomId(),
+          image: newLocation.imageLink,
+          locationText: newLocation.locationText,
+          location: {
+            lat: parseFloat(newLocation.latitude),
+            lng: parseFloat(newLocation.longitude)
+          },
+          zoom: parseFloat(newLocation.zoom)
+        }
+      ]
     });
   };
 
@@ -96,6 +118,14 @@ class MainBody extends Component {
               updateMap={this.updateMap}
             />
           </div>
+        </div>
+        <div className="container">
+          <NewLocationForm
+            handleSubmit={this.handleSubmit}
+            latitude={this.state.center.lat}
+            longitude={this.state.center.lng}
+            zoom={this.state.zoom}
+          />
         </div>
       </div>
     );
