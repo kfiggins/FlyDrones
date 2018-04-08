@@ -27,6 +27,7 @@ const Map = compose(
     onZoomChanged={props.mapZoom}
     center={props.center}
     panTo={props.panTo}
+    defaultOptions={props.defaultOptions}
   >
     {/* {props.isMarkerShown && (
       <Marker
@@ -48,6 +49,15 @@ const Map = compose(
 ));
 
 const MyFancyComponent = props => {
+  const defaultOptions = {
+    // styles: [mapStyles],
+    mapTypeId: "satellite"
+    // mapTypeControl: false,
+    // zoomControl: true,
+    // streetViewControl: true,
+    // draggableCursor: 'default',
+    // draggingCursor: 'move'
+  };
   return (
     <div>
       <Map
@@ -59,6 +69,7 @@ const MyFancyComponent = props => {
         mapLoaded={props.mapLoaded}
         mapMoved={props.mapMoved}
         mapZoom={props.mapZoom}
+        defaultOptions={defaultOptions}
       />
     </div>
   );

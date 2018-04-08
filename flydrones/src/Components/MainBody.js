@@ -10,17 +10,9 @@ class MainBody extends Component {
       {
         locationId: 1,
         image:
-          "https://images.pexels.com/photos/132037/pexels-photo-132037.jpeg?cs=srgb&dl=beach-boardwalk-boat-132037.jpg&fm=jpg",
-        locationText: "Canada",
-        location: { lat: 49.7603785, lng: -119.8480305 },
-        zoom: 15
-      },
-      {
-        locationId: 2,
-        image:
-          "https://images.pexels.com/photos/132037/pexels-photo-132037.jpeg?cs=srgb&dl=beach-boardwalk-boat-132037.jpg&fm=jpg",
-        locationText: "Somewhere, UT",
-        location: { lat: -49.7603785, lng: 119.8480305 },
+          "http://parks.ky.gov/!userfiles/parkgallery/129587742804497226.jpg?width=653&height=421&crop=auto&scale=both",
+        locationText: "Kentucky Hills",
+        location: { lat: 36.9247161, lng: -85.7235036 },
         zoom: 15
       }
     ],
@@ -77,6 +69,11 @@ class MainBody extends Component {
   };
 
   handleSubmit = newLocation => {
+    if (!newLocation.imageLink) {
+      newLocation.imageLink =
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA9OMjm3ws6ccirDaXZhHOrMUjratWs3vMSJADIWg4yM6s-ZBb";
+    }
+
     this.setState({
       locations: [
         ...this.state.locations,
@@ -85,10 +82,10 @@ class MainBody extends Component {
           image: newLocation.imageLink,
           locationText: newLocation.locationText,
           location: {
-            lat: parseFloat(newLocation.latitude),
-            lng: parseFloat(newLocation.longitude)
+            lat: this.state.center.lat,
+            lng: this.state.center.lng
           },
-          zoom: parseFloat(newLocation.zoom)
+          zoom: this.state.zoom
         }
       ]
     });

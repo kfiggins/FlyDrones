@@ -32,6 +32,10 @@ class NewLocationForm extends Component {
   render() {
     return (
       <div className="col-md-4" style={{ marginTop: "15px" }}>
+        <p>
+          Instructions: Find area by using map above and then save location.
+        </p>
+
         <form onSubmit={this.locationSubmit}>
           <div className="form-group">
             <label>Location Text</label>
@@ -51,7 +55,7 @@ class NewLocationForm extends Component {
               className="form-control"
             />
           </div>
-          <div className="form-group">
+          {/* <div className="form-group">
             <label>Latitude</label>
             <input
               type="number"
@@ -85,7 +89,7 @@ class NewLocationForm extends Component {
               className="form-control"
               value={this.props.zoom}
             />
-          </div>
+          </div> */}
           <button
             className="btn btn-info"
             style={{ margin: "5px" }}
